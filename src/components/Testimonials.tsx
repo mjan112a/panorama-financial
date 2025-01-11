@@ -1,4 +1,7 @@
+"use client";
+
 import { Carousel } from "@/components/ui/carousel";
+import Image from "next/image";
 
 export function Testimonials() {
   const testimonials = [
@@ -33,10 +36,12 @@ export function Testimonials() {
             <div key={index} className="px-4">
               <div className="bg-gray-50 p-8 rounded-lg">
                 <div className="flex items-center mb-6">
-                  <img 
+                  <Image
                     src={testimonial.photo}
                     alt={testimonial.name}
-                    className="w-16 h-16 rounded-full object-cover mr-4"
+                    width={64}
+                    height={64}
+                    className="rounded-full object-cover mr-4"
                   />
                   <div>
                     <h3 className="text-xl font-semibold">{testimonial.name}</h3>
@@ -44,7 +49,7 @@ export function Testimonials() {
                   </div>
                 </div>
                 <p className="text-gray-800 italic">
-                  "{testimonial.quote}"
+                  &ldquo;{testimonial.quote}&rdquo;
                 </p>
               </div>
             </div>

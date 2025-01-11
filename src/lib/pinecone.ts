@@ -8,7 +8,21 @@ export async function initPinecone() {
   return pinecone;
 }
 
-export async function upsertUserData(userId: string, data: any) {
+interface UserData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  age: string;
+  healthStatus: string;
+  annualIncome: string;
+  savings: string;
+  investments: string;
+  homeCare: string;
+  assistedLiving: string;
+  nursingHome: string;
+}
+
+export async function upsertUserData(userId: string, data: UserData) {
   const index = pinecone.Index("user-assessments");
   
   const vector = await generateEmbedding(data);

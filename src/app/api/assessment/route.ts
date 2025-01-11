@@ -23,14 +23,28 @@ const assessmentSchema = z.object({
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const validatedData = assessmentSchema.parse(body);
+    const data = assessmentSchema.parse(body);
     
     const userId = `user_${Date.now()}`;
-    const pinecone = await initPinecone();
+    const _pinecone = await initPinecone();
     
-    await upsertUserData(userId, validatedData);
+    const userData = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      age: data.age.toString(),
+      healthStatus: data.healthStatus,
+      annualIncome: data.financialDetails.annualIncome.toString(),
+      savings: data.financialDetails.savings.toString(),
+      investments: data.financialDetails.investments.toString(),
+      homeCare: data.carePreferences.homeCare.toString(),
+      assistedLiving: data.carePreferences.assistedLiving.toString(),
+      nursingHome: data.carePreferences.nursingHome.toString()
+    };
     
-    return NextResponse.json({
+    await upsertUserData(userId, userData);
+    
+    return NextResponse.json({ 
       success: true,
       message: "Assessment received successfully",
       userId
