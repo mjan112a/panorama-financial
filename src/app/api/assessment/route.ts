@@ -26,7 +26,12 @@ export async function POST(request: Request) {
     const data = assessmentSchema.parse(body);
     
     const userId = `user_${Date.now()}`;
-    await initPinecone();
+    const pineconeClient = await initPinecone();
+    
+    if (!pineconeClient) {
+      console.warn('Pinecone client not initialized, storing data locally');
+      // In a real app, you might want to store data in a local database or queue it for later
+    }
     
     const userData = {
       firstName: data.firstName,

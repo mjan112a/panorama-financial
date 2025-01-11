@@ -1,10 +1,24 @@
 import { Pinecone } from "@pinecone-database/pinecone";
 
-const pinecone = new Pinecone({
-  apiKey: process.env.PINECONE_API_KEY!
-});
+let pinecone: Pinecone | null = null;
 
 export async function initPinecone() {
+  if (!process.env.PINECONE_API_KEY) {
+    console.warn('Pinecone API key not found in environment variables');
+    return null;
+  }
+
+  if (!pinecone) {
+    try {
+      pinecone = new Pinecone({
+        apiKey: process.env.PINECONE_API_KEY
+      });
+    } catch (error) {
+      console.error('Failed to initialize Pinecone:', error);
+      return null;
+    }
+  }
+
   return pinecone;
 }
 
@@ -23,18 +37,27 @@ interface UserData {
 }
 
 export async function upsertUserData(userId: string, data: UserData) {
-  const index = pinecone.Index("user-assessments");
-  
-  const vector = await generateEmbedding();
-  
-  await index.upsert([{
-    id: userId,
-    values: vector,
-    metadata: {
-      timestamp: new Date().toISOString(),
-      ...data
-    }
-  }]);
+  if (!pinecone) {
+    console.warn('Pinecone client not initialized');
+    return;
+  }
+
+  try {
+    const index = pinecone.Index("user-assessments");
+    const vector = await generateEmbedding();
+    
+    await index.upsert([{
+      id: userId,
+      values: vector,
+      metadata: {
+        timestamp: new Date().toISOString(),
+        ...data
+      }
+    }]);
+  } catch (error) {
+    console.error('Failed to upsert data:', error);
+    throw error;
+  }
 }
 
 async function generateEmbedding(): Promise<number[]> {
