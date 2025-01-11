@@ -25,7 +25,7 @@ interface UserData {
 export async function upsertUserData(userId: string, data: UserData) {
   const index = pinecone.Index("user-assessments");
   
-  const vector = await generateEmbedding(data);
+  const vector = await generateEmbedding();
   
   await index.upsert([{
     id: userId,
@@ -37,7 +37,8 @@ export async function upsertUserData(userId: string, data: UserData) {
   }]);
 }
 
-async function generateEmbedding(data: any): Promise<number[]> {
+async function generateEmbedding(): Promise<number[]> {
   // TODO: Implement embedding generation using AI model
+  // For now, return a random 1536-dimensional vector
   return Array(1536).fill(0).map(() => Math.random());
 }

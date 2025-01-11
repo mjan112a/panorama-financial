@@ -26,7 +26,7 @@ export async function POST(request: Request) {
     const data = assessmentSchema.parse(body);
     
     const userId = `user_${Date.now()}`;
-    const _pinecone = await initPinecone();
+    await initPinecone();
     
     const userData = {
       firstName: data.firstName,
