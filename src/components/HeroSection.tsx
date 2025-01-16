@@ -1,16 +1,22 @@
 import Link from "next/link";
+import { TypeWriter } from "./ui/TypeWriter";
 
 export function HeroSection() {
+  const subtitleSentences = [
+    "Worried about outliving your money?",
+    "Concerned about dying broke?",
+    "Anxious about losing your independence?",
+    "Fearful of becoming a burden?"
+  ];
+
   return (
     <section className="relative h-[800px] bg-gradient-to-b from-blue-50 to-white">
       <div className="container mx-auto px-4 h-full flex flex-col justify-center">
         <div className="max-w-3xl space-y-8">
-          <h1 className="text-6xl font-bold text-gray-900">
-            We help you protect your legacy, loved ones, lifestyle, and health
+          <h1 className="text-4xl font-bold text-gray-900">
+            Learn how to protect your legacy, loved ones, lifestyle, and health
           </h1>
-          <p className="text-xl text-gray-600">
-            Worried about outliving your money? Dying broke? Losing your independence? Becoming a burden?
-          </p>
+          <TypeWriter sentences={subtitleSentences} speed={60} delay={1500} />
           <div className="flex gap-4">
             <Link
               href="/assessment"
