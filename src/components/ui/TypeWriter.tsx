@@ -8,7 +8,7 @@ interface TypeWriterProps {
   delay?: number;
 }
 
-export function TypeWriter({ sentences, speed = 60, delay = 2000 }: TypeWriterProps): JSX.Element {
+export function TypeWriter({ sentences, speed = 60, delay = 2000 }: TypeWriterProps) {
   const [currentSentenceIndex, setCurrentSentenceIndex] = useState<number>(0);
   const [currentText, setCurrentText] = useState<string>("");
   const [isDeleting, setIsDeleting] = useState<boolean>(false);
