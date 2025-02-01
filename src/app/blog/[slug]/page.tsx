@@ -1,13 +1,14 @@
 import { getPostData } from '@/lib/markdown';
 import Link from 'next/link';
 
-type Props = {
+interface PageProps {
   params: {
     slug: string;
   };
-};
+  searchParams: { [key: string]: string | string[] | undefined };
+}
 
-export default async function BlogPost({ params }: Props) {
+export default async function BlogPost({ params }: PageProps) {
   const post = await getPostData(params.slug);
 
   return (
