@@ -1,6 +1,5 @@
 import { getPostData } from '@/lib/markdown';
 import Link from 'next/link';
-import { Metadata } from 'next';
 
 type Props = {
   params: Promise<{ slug: string }>;
