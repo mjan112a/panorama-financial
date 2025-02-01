@@ -1,11 +1,13 @@
 import { getPostData } from '@/lib/markdown';
 import Link from 'next/link';
 
-export default async function BlogPost({
-  params,
-}: {
+interface GenerateMetadata {
   params: { slug: string };
-}) {
+  searchParams: { [key: string]: string | string[] | undefined };
+}
+
+export default async function BlogPost(props: GenerateMetadata) {
+  const { params } = props;
   const post = await getPostData(params.slug);
 
   return (
