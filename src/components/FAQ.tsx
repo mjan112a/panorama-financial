@@ -13,7 +13,7 @@ const faqs = [
   },
   {
     question: "How much does the service cost?",
-    answer: "We offer a free initial consultation to understand your needs. Our pricing is transparent and based on the complexity of your financial situation."
+    answer: "Our pricing is transparent and based on the complexity of your financial situation. We'll provide a detailed quote after understanding your specific needs."
   },
   {
     question: "Can I use this platform without financial expertise?",
