@@ -1,14 +1,15 @@
 import { getPostData } from '@/lib/markdown';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
-interface GenerateMetadata {
-  params: { slug: string };
+type Props = {
+  params: Promise<{ slug: string }>;
   searchParams: { [key: string]: string | string[] | undefined };
-}
+};
 
-export default async function BlogPost(props: GenerateMetadata) {
-  const { params } = props;
-  const post = await getPostData(params.slug);
+export default async function BlogPost({ params }: Props) {
+  const resolvedParams = await params;
+  const post = await getPostData(resolvedParams.slug);
 
   return (
     <article className="min-h-screen bg-gray-50">
